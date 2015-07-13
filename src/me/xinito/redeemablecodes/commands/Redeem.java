@@ -1,6 +1,7 @@
 package me.xinito.redeemablecodes.commands;
 
 import me.xinito.redeemablecodes.RedeemableCodes;
+import me.xinito.redeemablecodes.SettingsManager;
 
 import org.bukkit.ChatColor;
 import org.bukkit.command.Command;
@@ -16,6 +17,8 @@ public class Redeem implements CommandExecutor {
 		this.plugin = plugin;
 	}
 	
+	SettingsManager settings = SettingsManager.getInstance();
+	
 	@Override
 	public boolean onCommand(CommandSender sender, Command cmd, String label, String[] args) {
 		
@@ -25,7 +28,8 @@ public class Redeem implements CommandExecutor {
 		
 		if (cmd.getName().equalsIgnoreCase("redeem") && sender instanceof Player) {
 			if (length == 1) {
-				String validKey = plugin.getConfig().getString("Keys");
+				
+				String validKey = settings.getKeys().getString("Keys");
 				
 				if (validKey.contains(args[0])) {
 					player.sendMessage(ChatColor.YELLOW + "Matching key!");
