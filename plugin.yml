@@ -1,0 +1,9 @@
+name: RedeemableCodes
+version: 0.1
+main: me.xinito.redeemablecodes.RedeemableCodes
+author: Xinito
+commands:
+  create:
+    description: Creates a random key
+  redeem:
+    description: Redeems a random key
