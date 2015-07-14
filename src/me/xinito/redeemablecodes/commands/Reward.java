@@ -1,32 +1,28 @@
 package me.xinito.redeemablecodes.commands;
 
 import java.util.List;
-import java.util.Random;
 
 import me.xinito.redeemablecodes.RedeemableCodes;
-import me.xinito.redeemablecodes.SettingsManager;
 
 import org.bukkit.ChatColor;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
- 
-public class Create implements CommandExecutor {
-       
+
+public class Reward implements CommandExecutor {
+	
 	private RedeemableCodes plugin;
 	
-	public Create(RedeemableCodes plugin) {
+	public Reward(RedeemableCodes plugin) {
 		this.plugin = plugin;
 	}
 	
-	SettingsManager settings = SettingsManager.getInstance();
-       
     @Override
     public boolean onCommand(CommandSender sender, Command cmd, String label, String[] args) {
     	Player player = (Player) sender;
                
-    	if (!sender.hasPermission("rc.createkey"))
+    	if (!sender.hasPermission("rc.reward.add"))
         {
           sender.sendMessage(ChatColor.RED + "No permission!");
           return true;
@@ -37,23 +33,25 @@ public class Create implements CommandExecutor {
         	return true;
         }
                
-        if(cmd.getName().equalsIgnoreCase("createkey")){
-                       
-        	Random random = new Random();
-        	
-        	int key = random.nextInt(799999999) + 100000000;
+        if(cmd.getName().equalsIgnoreCase("reward")){
                        
         	if(args.length == 0){
-        		player.sendMessage(plugin.prefix + ChatColor.GREEN + "Succesfully generated: " + ChatColor.YELLOW + key);
-                               
-        		List<String> keys = settings.getKeys().getStringList("Keys");
-        		keys.add(String.valueOf(Integer.valueOf(key)));
-        		settings.getKeys().set("Keys", keys);
-        		settings.saveKeys();
+        		player.sendMessage(ChatColor.RED + "Incorrect args");
+        	}
+        	if(args.length == 1){
+        		player.sendMessage(ChatColor.RED + "Incorrect args");
+        	}
+        	if (args.length == 2) {
+        		if (args[0].equalsIgnoreCase("add")) {
+        			List<String> list = plugin.getConfig().getStringList("Rewards");
+        			list.add(args[1]);
+        			plugin.getConfig().set("Rewards", list);
+        			plugin.saveConfig();
+        			player.sendMessage(plugin.prefix + ChatColor.GREEN + "Successfully added: " + ChatColor.YELLOW + args[1]);
+        		}
         	}
         }
         
         return false;
-        
    }
 }

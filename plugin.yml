@@ -3,7 +3,12 @@ version: 0.1
 main: me.xinito.redeemablecodes.RedeemableCodes
 author: Xinito
 commands:
-  create:
-    description: Creates a random key
+  createkey:
+    description: Generates a random key!
+    permission: rc.createkey
   redeem:
-    description: Redeems a random key
+    description: Redeems a random key!
+    permission: rc.redeem
+  reward:
+    description: Adds a reward to the config.yml list.
+    permission: rc.reward.add

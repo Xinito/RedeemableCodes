@@ -30,14 +30,14 @@ public class SettingsManager {
     		plugin.getDataFolder().mkdirs();
     	}
                
-    	kfile = new File(plugin.getDataFolder(), "Keys.yml");
+    	kfile = new File(plugin.getDataFolder(), "keys.yml");
     	if(!kfile.exists()){
     		try{
     			kfile.createNewFile();
-    			Bukkit.getLogger().info("Keys.yml created!");
+    			Bukkit.getLogger().info("keys.yml created!");
     		}
     		catch (IOException e){
-    			Bukkit.getLogger().severe("Could not create Keys.yml!");
+    			Bukkit.getLogger().severe("Could not create keys.yml!");
     			e.printStackTrace();
     		}
     	}
@@ -53,7 +53,7 @@ public class SettingsManager {
     		keys.save(kfile);
     	}
     	catch (IOException e){
-    		Bukkit.getLogger().severe("Could not save Keys.yml!");
+    		Bukkit.getLogger().severe("Could not save keys.yml!");
     		e.printStackTrace();
     	}
     }
