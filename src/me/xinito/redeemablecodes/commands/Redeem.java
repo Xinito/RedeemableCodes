@@ -1,5 +1,7 @@
 package me.xinito.redeemablecodes.commands;
 
+import java.util.List;
+
 import me.xinito.redeemablecodes.RedeemableCodes;
 import me.xinito.redeemablecodes.SettingsManager;
 
@@ -29,10 +31,13 @@ public class Redeem implements CommandExecutor {
 		if (cmd.getName().equalsIgnoreCase("redeem") && sender instanceof Player) {
 			if (length == 1) {
 				
-				String validKey = settings.getKeys().getString("Keys");
+				List<String> keys = settings.getKeys().getStringList("Keys");
 				
-				if (validKey.contains(args[0])) {
+				if (keys.contains(args[0])) {
 					player.sendMessage(ChatColor.YELLOW + "Matching key!");
+					keys.remove(String.valueOf(Integer.valueOf(args[0])));
+					settings.getKeys().set("Keys", keys);
+					settings.saveKeys();
 				} else {
 					player.sendMessage(ChatColor.RED + "Incorrect key!");
 				}
